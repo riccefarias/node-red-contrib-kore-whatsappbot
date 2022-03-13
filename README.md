@@ -1,11 +1,11 @@
 # Whatsapp bot nodes for Node-RED
 [![Platform](https://img.shields.io/badge/platform-Node--RED-red)](https://nodered.org)
-![License](https://img.shields.io/github/license/windkh/node-red-contrib-kore-whatsappbot.svg)
+![License](https://img.shields.io/github/license/riccefarias/node-red-contrib-kore-whatsappbot.svg)
 [![Downloads](https://img.shields.io/npm/dm/node-red-contrib-kore-whatsappbot.svg)](https://www.npmjs.com/package/node-red-contrib-kore-whatsappbot)
 [![Total Downloads](https://img.shields.io/npm/dt/node-red-contrib-kore-whatsappbot.svg)](https://www.npmjs.com/package/node-red-contrib-kore-whatsappbot)
 [![NPM](https://img.shields.io/npm/v/node-red-contrib-kore-whatsappbot?logo=npm)](https://www.npmjs.org/package/node-red-contrib-kore-whatsappbot)
 [![Telegram](https://img.shields.io/badge/Join-Telegram%20Chat-blue.svg?logo=telegram)](https://t.me/codechatBR)
-![Build](https://img.shields.io/github/workflow/status/windkh/nnode-red-contrib-kore-whatsappbot/Node.js%20CI?event=push)
+![Build](https://img.shields.io/github/workflow/status/riccefarias/node-red-contrib-kore-whatsappbot/Node.js%20CI?event=push)
 
 
 
@@ -27,6 +27,8 @@ Or run the following command in the root directory of your Node-RED installation
 
     npm install node-red-contrib-kore-whatsappbot --save
 
+#Example
+[![Example](https://raw.githubusercontent.com/riccefarias/node-red-contrib-kore-whatsappbot/master/examples/img.png)](https://raw.githubusercontent.com/riccefarias/node-red-contrib-kore-whatsappbot/master/examples/base%20flow.json)
 
 
 # License
