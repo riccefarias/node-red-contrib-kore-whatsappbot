@@ -1,0 +1,91 @@
+<script type="text/javascript">
+  RED.nodes.registerType('whatsapp-storemessage', {
+    category: 'Whatsapp Bot',
+    color: '#c4cc9e',
+    defaults: {
+      name: {
+        value: ''
+      },
+      client: {
+        type: 'whatsapp-kore-client',
+        required: true
+      },
+      chave: {
+        value: ''
+      }
+    },
+    inputs: 1,
+    outputs: 1,
+    align: "left",
+    icon: 'font-awesome/fa-floppy-o',
+    paletteLabel: 'Salvar Resposta',
+    label: function () {
+      return this.name || this.chave || 'Salvar Resposta'
+    },
+      outputLabels: function(index){
+        return (index===0)?'Após Gravar':'Fluxo';
+      }
+  })
+</script>
+
+
+<script type="text/html" data-template-name="whatsapp-storemessage">
+  <div class="form-row">
+    <label for="node-input-client"><i class="icon-globe"></i> <span> Cliente WhatsApp</span></label>
+    <input type="text" id="node-input-client">
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+	<hr>
+  <div class="form-row">
+    <label for="node-input-chave"><i class="fa fa-tag"></i> Chave</label>
+    <input type="text" id="node-input-chave" placeholder="meuParametro">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="whatsapp-storemessage">
+  <p>Used to send a text message to a whatsapp contact</p>
+  
+  <h3>Input</h3>
+  <ol class="node-ports">
+     <li>Input
+      <dl class="message-properties">
+        <dt>to <span class="property-type">String</span></dt>
+        <dd>Contact (full whatsapp address)</dd>
+    </dl>
+      <dl class="message-properties">
+        <dt>message <span class="property-type">String</span></dt>
+        <dd>Text message to send</dd>
+    </dl>
+     </li>
+  </ol>
+
+  <h3>Outputs</h3>
+  <ol class="node-ports">
+     <li>Output
+         <dl class="message-properties">
+             <dt>payload <span class="property-type">Array</span></dt>
+             <dd>Args result of the api/event</dd>
+         </dl>
+         <dl class="message-properties">
+             <dt>topic <span class="property-type">String</span></dt>
+             <dd>API name</dd>
+         </dl>
+     </li>
+  </ol>
+
+  <h3>Examples</h3>
+
+  <p>You can send message with fixed values inside this node configuration, or send dinamic data using flow.</p>
+
+  <p>Example message flow</p>
+  <code>
+    msg = { to: 'xxxxxxxx@s.whatsapp.net',message: 'Hello World!' }
+    return msg
+  </code>
+
+ 
+  
+  </script>

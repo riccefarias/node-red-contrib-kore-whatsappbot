@@ -1,0 +1,35 @@
+<script type="text/javascript">
+    RED.nodes.registerType('whatsapp-kore-client', {
+        category: 'config',
+        defaults: {
+            session: {
+                value: "session",
+                required: true
+            },
+            agent: {
+                value: "Kore",
+                required: true
+            }
+        },
+        label: function () {
+            return 'whatsapp' + ":" + this.session;
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="whatsapp-kore-client">
+    <div class="form-row">
+        <label for="node-config-input-session"><i class="icon-bookmark"></i> Session</label>
+        <input type="text" id="node-config-input-session">
+    </div>
+	<div class="form-row">
+        <label for="node-config-input-agent"><i class="icon-bookmark"></i> Agent</label>
+        <input type="text" id="node-config-input-agent">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="whatsapp-kore-client">
+    <p>Create a whatsapp client to use for sending actions and receiving events from</p>
+    <h3>Details</h3>
+    <p><code>session</code>: will be the name of the client, must be unique, a folder with this name will be created in <code>~/.node-red</code> directory</p>
+</script>

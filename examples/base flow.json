@@ -1,0 +1,427 @@
+[
+    {
+        "id": "ada916479fb34c9b",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1ea3a73fdfa1ae23",
+        "type": "whatsapp-sendmessage",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "client": "520de200c8c324fd",
+        "force": false,
+        "typing": true,
+        "sendRead": true,
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Olá, seja bem-vindo a Kore.AG",
+        "x": 570,
+        "y": 180,
+        "wires": [
+            [
+                "75d4adf158f97af0"
+            ],
+            [
+                "b3e0e5e62c4647f7"
+            ]
+        ]
+    },
+    {
+        "id": "a4e8d93c2b25170c",
+        "type": "whatsapp-sendmessage",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "client": "520de200c8c324fd",
+        "force": true,
+        "typing": true,
+        "sendRead": true,
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eu sou o assistente virtual aqui da Kore.AG, e vou te guiar por aqui...",
+        "x": 770,
+        "y": 260,
+        "wires": [
+            [],
+            [
+                "23ff95d7f5b43fa9"
+            ]
+        ]
+    },
+    {
+        "id": "b3e0e5e62c4647f7",
+        "type": "delay",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 420,
+        "y": 260,
+        "wires": [
+            [
+                "a4e8d93c2b25170c"
+            ]
+        ]
+    },
+    {
+        "id": "23ff95d7f5b43fa9",
+        "type": "delay",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 420,
+        "y": 340,
+        "wires": [
+            [
+                "5f125208206ea113"
+            ]
+        ]
+    },
+    {
+        "id": "5f125208206ea113",
+        "type": "whatsapp-sendmessage",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "client": "520de200c8c324fd",
+        "force": true,
+        "typing": true,
+        "sendRead": true,
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Bom, pra começar, que tal me dizer o seu nome?",
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [],
+            [
+                "c235a9cab58449b5"
+            ]
+        ]
+    },
+    {
+        "id": "c235a9cab58449b5",
+        "type": "whatsapp-storemessage",
+        "z": "ada916479fb34c9b",
+        "name": "Nome",
+        "client": "520de200c8c324fd",
+        "chave": "nome",
+        "x": 990,
+        "y": 340,
+        "wires": [
+            [
+                "bef655bbe55772be",
+                "fbf418c3826f4af5"
+            ]
+        ]
+    },
+    {
+        "id": "fbf418c3826f4af5",
+        "type": "whatsapp-sendmessage",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "client": "520de200c8c324fd",
+        "force": false,
+        "typing": false,
+        "sendRead": false,
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Olá {{nome}}, que bom que você voltou 😁",
+        "x": 970,
+        "y": 500,
+        "wires": [
+            [
+                "6611cc3cb9738ce0"
+            ],
+            [
+                "af6513cf06cd6846"
+            ]
+        ]
+    },
+    {
+        "id": "bef655bbe55772be",
+        "type": "debug",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1170,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "6611cc3cb9738ce0",
+        "type": "debug",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "7d8ff1e8e5101ef4",
+        "type": "whatsapp-sendbuttons",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "client": "520de200c8c324fd",
+        "force": true,
+        "outputs": 5,
+        "rules": [
+            {
+                "t": "JasSy APP"
+            },
+            {
+                "t": "Tarkan Rastreamento"
+            },
+            {
+                "t": "Automação Whatsapp"
+            },
+            {
+                "t": "Outros assuntos"
+            }
+        ],
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Sobre o que você gostaria de falar?",
+        "x": 1340,
+        "y": 620,
+        "wires": [
+            [
+                "7406ed77f58b4494"
+            ],
+            [
+                "ba729bbbd16395ff"
+            ],
+            [
+                "e39ab7f985a259eb"
+            ],
+            [
+                "1ae821dd3be52c6f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7406ed77f58b4494",
+        "type": "debug",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1690,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "287db895b72de9a8",
+        "type": "function",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "func": "if(msg.payload.isGroup || msg.payload.contactId!=='555184363446@s.whatsapp.net'){\n    return [msg,null];\n}else{\n        return [null,msg];\n}",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 180,
+        "wires": [
+            [],
+            [
+                "1ea3a73fdfa1ae23"
+            ]
+        ]
+    },
+    {
+        "id": "e39ab7f985a259eb",
+        "type": "whatsapp-sendmessage",
+        "z": "ada916479fb34c9b",
+        "name": "Escopo Tarkan",
+        "client": "520de200c8c324fd",
+        "force": true,
+        "typing": true,
+        "sendRead": true,
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "O Projeto Tarkan tem como principio ser uma plataforma\nincremental para uso em conjunto com o Traccar. A proposta\nconsiste na disposicão de opções de temas visuais (front-end)\nelaborados cuidadosamente a fim de proporcionar uma melhor\nexperiência aos usuários, substituindo assim o acesso web, bem\ncomo disponibilizando de forma responsiva e em WPA para\nacesso em dispositivos móveis.",
+        "x": 1720,
+        "y": 600,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1ae821dd3be52c6f",
+        "type": "whatsapp-sendmessage",
+        "z": "ada916479fb34c9b",
+        "name": "Escopo Zap",
+        "client": "520de200c8c324fd",
+        "force": true,
+        "typing": true,
+        "sendRead": true,
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Possuimos uma plataforma que possibilita automatizar diversas tarefas dentro do whatsapp, como esta aqui!",
+        "x": 1710,
+        "y": 640,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "ba729bbbd16395ff",
+        "type": "whatsapp-sendmessage",
+        "z": "ada916479fb34c9b",
+        "name": "Escopo JasSy",
+        "client": "520de200c8c324fd",
+        "force": true,
+        "typing": true,
+        "sendRead": true,
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "JasSy é uma plataforma de gestão comercial completa para o gerenciamento do seu bar, delivery ou restaurante.",
+        "x": 1720,
+        "y": 560,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "af6513cf06cd6846",
+        "type": "delay",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "15",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 620,
+        "wires": [
+            [
+                "7d8ff1e8e5101ef4"
+            ]
+        ]
+    },
+    {
+        "id": "947b4be4da50746e",
+        "type": "comment",
+        "z": "ada916479fb34c9b",
+        "name": "Angelo",
+        "info": "id 7d8ff1e8e5101ef4_1\n    7d8ff1e8e5101ef4_2",
+        "x": 1250,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "2e5d9055939d1678",
+        "type": "debug",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "75d4adf158f97af0",
+        "type": "function",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "func": "if(msg.update.status===4){\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 120,
+        "wires": [
+            [
+                "2e5d9055939d1678"
+            ]
+        ]
+    },
+    {
+        "id": "eb59499aee0a1c5f",
+        "type": "whatsapp-kore-bot",
+        "z": "ada916479fb34c9b",
+        "name": "",
+        "client": "520de200c8c324fd",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [],
+            [
+                "287db895b72de9a8"
+            ]
+        ]
+    },
+    {
+        "id": "520de200c8c324fd",
+        "type": "whatsapp-kore-client",
+        "session": "session",
+        "agent": "Kore"
+    }
+]
