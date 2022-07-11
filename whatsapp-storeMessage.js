@@ -16,7 +16,7 @@ module.exports = function (RED) {
         const clientNode = RED.nodes.getNode(config.client);
 
         function saveState(id,data){
-            const sessionDir = "/data/sessions/"+clientNode.id+"-"+id+".json";
+            const sessionDir = clientNode.storage+"/contacts/"+id.split("@")[0]+".json";
 
             if(data){
                 return writeFileSync(sessionDir,JSON.stringify(data));

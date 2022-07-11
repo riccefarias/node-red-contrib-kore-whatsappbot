@@ -10,6 +10,7 @@ module.exports = function (RED) {
         const node = this
         node.name = config.name
         node.force = config.force;
+        node.to = config.to;
         node.message = config.template;
         node.typing = config.typing;
         node.sendRead = config.sendRead;
@@ -26,7 +27,7 @@ module.exports = function (RED) {
         }
 
         function saveState(id,data){
-            const sessionDir = "/data/sessions/"+clientNode.id+"-"+id+".json";
+            const sessionDir = clientNode.storage+"/contacts/"+id.split("@")[0]+".json";
 
             if(data){
                 return writeFileSync(sessionDir,JSON.stringify(data));
@@ -45,7 +46,7 @@ module.exports = function (RED) {
         });
 
         node.on('input', async function (msg) {
-            const to = msg.to || msg.payload.contactId;
+            const to = msg.to || msg.payload.contactId || node.to;
             let message = msg.message || msg.payload.message || node.message;
 
             if(msg.executed){
@@ -58,7 +59,7 @@ module.exports = function (RED) {
 
             }
 
-            if(node.force || (msg.session===false && !msg.executed) || (msg.session && msg.session.lastNodeId === node.id && !msg.executed)) {
+            if((node.force || msg.force) || (msg.session===false && !msg.executed) || (msg.session && msg.session.lastNodeId === node.id && !msg.executed)) {
 
                 if(msg.payload.contactId && msg.payload.messageId) {
                     clientNode.sendRead(msg.payload.contactId,msg.payload.participant,msg.payload.messageId)
