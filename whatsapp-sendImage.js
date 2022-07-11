@@ -3,18 +3,29 @@ module.exports = function (RED) {
     'use strict'
     const {writeFileSync} = require("fs");
 
-    function WhatsappSendButtons (config) {
+    function WhatsappSendImage (config) {
         RED.nodes.createNode(this, config)
 
 
         const node = this
         node.name = config.name
         node.force = config.force;
+        node.to = config.to;
         node.message = config.template;
-        node.buttons = config.rules;
+        node.typing = config.typing;
+        node.sendRead = config.sendRead;
+        node.url = config.imageUrl;
 
 
         const clientNode = RED.nodes.getNode(config.client);
+
+        function simulateTyping(id,message){
+            return new Promise((resolve)=> {
+                clientNode.sendPresence(id,'composing');
+
+                setTimeout(resolve,message.length*30);
+            });
+        }
 
         function saveState(id,data){
             const sessionDir = clientNode.storage+"/contacts/"+id.split("@")[0]+".json";
@@ -30,10 +41,15 @@ module.exports = function (RED) {
         if (clientNode) {
             console.log(clientNode);
         }
+        
+        node.on('messageStatus', async function(msg){
+            node.send([msg,null]);
+        });
 
-        node.on('input', function (msg) {
-            const to = msg.to || msg.payload.contactId;
-            let message = msg.message || node.message;
+        node.on('input', async function (msg) {
+            const to = msg.to || msg.payload.contactId || node.to;
+            let message = msg.message || msg.payload.message || node.message;
+            let url = msg.url || msg.payload.url || node.url;
 
             if(msg.executed){
                 if(!msg.session){
@@ -41,36 +57,24 @@ module.exports = function (RED) {
                 }
 
                 msg.session['lastNodeId'] = node.id;
-
                 saveState(to.split("@")[0],msg.session);
 
             }
 
-            if(msg.topic==='buttonResponseMessage'){
+            if((node.force || msg.force) || (msg.session===false && !msg.executed) || (msg.session && msg.session.lastNodeId === node.id && !msg.executed)) {
 
-                let _resp = [null];
-                node.buttons.forEach((b,k)=>{
-                    if(parseInt(k)===parseInt(msg.payload.clickBtn)){
-                        _resp.push(msg);
-                    }else{
-                        _resp.push(null);
-                    }
-                });
+                if(msg.payload.contactId && msg.payload.messageId) {
+                    clientNode.sendRead(msg.payload.contactId,msg.payload.participant,msg.payload.messageId)
+                }
 
-                node.send(_resp);
-
-
-            }else if(node.force || (msg.session===false && !msg.executed) || (msg.session.lastNodeId === node.id && !msg.executed)) {
-                if (to) {
-
-                    let params = {};
+                if (to && message) {
 
                     if(!msg.session){
                         msg.session = {};
                     }
 
                     msg.executed = true;
-                    
+
                     Object.keys(msg.session).forEach((p)=>{
 
                         const kk = p.split("user.");
@@ -81,27 +85,20 @@ module.exports = function (RED) {
                         }
                     })
 
-                    //{ text: params.text, buttons: buttons }
-                    //{ buttonId: b.id, buttonText: { displayText: b.text }, type: b.type }
-                    if(message){
-                        params['text'] = message;
+                    if(node.typing){
+                        await simulateTyping(to,message);
                     }
 
-                    params['buttons'] = [];
-                    node.buttons.forEach((r,k)=>{
-                        params['buttons'].push({ buttonId: node.id+"_"+k, buttonText: { displayText: r.t }, type: 1});
-                    })
+                    clientNode.sendimage(to, message,url,node.id);
+                    //clientNode.sendTTS(to, message);
 
 
-                    clientNode.sendButtons(to, params);
-
-
-                    node.send(msg);
+                    node.send([null,msg]);
                 } else {
                     node.error('"to" and "message" are required parameters');
                 }
             }else{
-                node.send(msg);
+                node.send([null,msg]);
             }
 
         })
@@ -110,5 +107,5 @@ module.exports = function (RED) {
 
     }
 
-    RED.nodes.registerType('whatsapp-sendbuttons', WhatsappSendButtons)
+    RED.nodes.registerType('whatsapp-sendimage', WhatsappSendImage)
 }

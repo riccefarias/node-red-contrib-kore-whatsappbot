@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="efbc5ffb-a9a8-4a52-ab76-cb3ad93af735" name="Changes" comment="changed">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whatsapp-bot.js" beforeDir="false" afterPath="$PROJECT_DIR$/whatsapp-bot.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whatsapp-client.html" beforeDir="false" afterPath="$PROJECT_DIR$/whatsapp-client.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whatsapp-client.js" beforeDir="false" afterPath="$PROJECT_DIR$/whatsapp-client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whatsapp-sendButtons.js" beforeDir="false" afterPath="$PROJECT_DIR$/whatsapp-sendButtons.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whatsapp-sendMessage.html" beforeDir="false" afterPath="$PROJECT_DIR$/whatsapp-sendMessage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whatsapp-sendMessage.js" beforeDir="false" afterPath="$PROJECT_DIR$/whatsapp-sendMessage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whatsapp-storeMessage.js" beforeDir="false" afterPath="$PROJECT_DIR$/whatsapp-storeMessage.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="25yplx7tuZfRTogoPkQWX6vHU46" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="ssh.settings" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\REDNEW\zap" />
+      <recent name="C:\RED\whatsapp" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="efbc5ffb-a9a8-4a52-ab76-cb3ad93af735" name="Changes" comment="" />
+      <created>1646509335065</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1646509335065</updated>
+      <workItem from="1646509336232" duration="1941000" />
+      <workItem from="1646568712562" duration="31404000" />
+      <workItem from="1646685753157" duration="1129000" />
+      <workItem from="1646920488533" duration="5739000" />
+      <workItem from="1647003801919" duration="4830000" />
+      <workItem from="1647178361127" duration="2556000" />
+      <workItem from="1647873699544" duration="5193000" />
+      <workItem from="1647908251766" duration="102000" />
+      <workItem from="1647910825661" duration="9000" />
+    </task>
+    <task id="LOCAL-00001" summary="changed">
+      <created>1647178850749</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1647178850749</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/whatsapp-bot.js</url>
+          <line>54</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

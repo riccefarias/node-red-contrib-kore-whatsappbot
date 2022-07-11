@@ -27,7 +27,8 @@ Or run the following command in the root directory of your Node-RED installation
 
     npm install node-red-contrib-kore-whatsappbot --save
 
-#Example
+# Example
+
 [![Example](https://raw.githubusercontent.com/riccefarias/node-red-contrib-kore-whatsappbot/master/examples/img.png)](https://raw.githubusercontent.com/riccefarias/node-red-contrib-kore-whatsappbot/master/examples/base%20flow.json)
 
 

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('whatsapp-sendmessage', {
+    RED.nodes.registerType('whatsapp-sendimage', {
         oneditprepare: function() {
             var that = this;
 
@@ -45,6 +45,7 @@
                 value: true
             },
             to: {value: ''},
+            imageUrl: {value: ''},
             format: {value:"handlebars"},
             syntax: {value:"mustache"},
             template: {
@@ -55,9 +56,9 @@
         outputs: 2,
         align: "left",
         icon: 'font-awesome/fa-commenting-o',
-        paletteLabel: 'Enviar Mensagem',
+        paletteLabel: 'Enviar Imagem',
         label: function () {
-            return this.name || this.template || 'Enviar mensagem'
+            return this.name || this.template || 'Enviar Imagem'
         },
         outputLabels: function(index){
             return (index===0)?'Status da Mensagem':'Mensagem enviada';
@@ -66,7 +67,7 @@
 </script>
 
 
-<script type="text/html" data-template-name="whatsapp-sendmessage">
+<script type="text/html" data-template-name="whatsapp-sendimage">
     <div class="form-row">
         <label for="node-input-client"><i class="icon-globe"></i> <span> Cliente WhatsApp</span></label>
         <input type="text" id="node-input-client">
@@ -93,6 +94,10 @@
         <label for="node-input-to"><i class="fa fa-tag"></i> Enviar para</label>
         <input type="text" id="node-input-to" placeholder="msg.to">
     </div>
+    <div class="form-row">
+        <label for="node-input-imageUrl"><i class="icon-globe"></i> <span> Imagem (URL)</span></label>
+        <input type="text" id="node-input-imageUrl">
+    </div>
     <label for="node-input-template"><i class="fa fa-file-code-o"></i> <span >Mensagem</span></label>
     <input type="hidden" id="node-input-template" autofocus="autofocus">
 
@@ -101,7 +106,7 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="whatsapp-sendmessage">
+<script type="text/html" data-help-name="whatsapp-sendimage">
     <p>Used to send a text message to a whatsapp contact</p>
 
     <h3>Input</h3>

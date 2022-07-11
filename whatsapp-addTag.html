@@ -1,30 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('whatsapp-sendmessage', {
-        oneditprepare: function() {
-            var that = this;
-
-            if (!this.syntax) {
-                this.syntax = 'mustache';
-            }
-
-            this.editor = RED.editor.createEditor({
-                id: 'node-input-template-editor',
-                mode: 'ace/mode/handlebars',
-                value: $("#node-input-template").val()
-            });
-
-            this.editor.focus();
-
-        },
-        oneditsave: function() {
-            $("#node-input-template").val(this.editor.getValue());
-            this.editor.destroy();
-            delete this.editor;
-        },
-        oneditcancel: function() {
-            this.editor.destroy();
-            delete this.editor;
-        },
+    RED.nodes.registerType('whatsapp-addtag', {        
         category: 'Whatsapp Bot',
         color: '#9eccb2',
         defaults: {
@@ -34,39 +9,29 @@
             client: {
                 type: 'whatsapp-kore-client',
                 required: true
-            },
-            force: {
-                value: false
-            },
-            typing: {
-                value: true
-            },
+            },            
             sendRead: {
                 value: true
             },
             to: {value: ''},
-            format: {value:"handlebars"},
-            syntax: {value:"mustache"},
-            template: {
-                value:"This is the payload: {{payload}} !"
-            },
+            tag: {value: ''},
         },
         inputs: 1,
         outputs: 2,
         align: "left",
         icon: 'font-awesome/fa-commenting-o',
-        paletteLabel: 'Enviar Mensagem',
+        paletteLabel: 'Adicionar Etiqueta',
         label: function () {
-            return this.name || this.template || 'Enviar mensagem'
+            return this.name || 'Adicionar Etiqueta'
         },
         outputLabels: function(index){
-            return (index===0)?'Status da Mensagem':'Mensagem enviada';
+            return (index===0)?'Etiqueta Adicionada':'Fluxo';
         }
     })
 </script>
 
 
-<script type="text/html" data-template-name="whatsapp-sendmessage">
+<script type="text/html" data-template-name="whatsapp-addtag">
     <div class="form-row">
         <label for="node-input-client"><i class="icon-globe"></i> <span> Cliente WhatsApp</span></label>
         <input type="text" id="node-input-client">
@@ -76,14 +41,7 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <hr>
-    <div class="form-row">
-        <label for="node-input-force"><i class="fa fa-tag"></i> Forçar envio</label>
-        <input type="checkbox" id="node-input-force">
-    </div>
-    <div class="form-row">
-        <label for="node-input-typing"><i class="fa fa-tag"></i> Digitando</label>
-        <input type="checkbox" id="node-input-typing">
-    </div>
+   
     <div class="form-row">
         <label for="node-input-sendRead"><i class="fa fa-tag"></i> Visualizar</label>
         <input type="checkbox" id="node-input-sendRead">
@@ -93,16 +51,15 @@
         <label for="node-input-to"><i class="fa fa-tag"></i> Enviar para</label>
         <input type="text" id="node-input-to" placeholder="msg.to">
     </div>
-    <label for="node-input-template"><i class="fa fa-file-code-o"></i> <span >Mensagem</span></label>
-    <input type="hidden" id="node-input-template" autofocus="autofocus">
 
-    <div class="form-row node-text-editor-row">
-        <div style="height: 250px; min-height:150px;" class="node-text-editor" id="node-input-template-editor" ></div>
+    <div class="form-row">
+        <label for="node-input-tag"><i class="fa fa-tag"></i> Etiqueta</label>
+        <input type="text" id="node-input-tag" placeholder="msg.tag">
     </div>
 </script>
 
-<script type="text/html" data-help-name="whatsapp-sendmessage">
-    <p>Used to send a text message to a whatsapp contact</p>
+<script type="text/html" data-help-name="whatsapp-addtag">
+    <p>Used to add a label to a whatsapp contact</p>
 
     <h3>Input</h3>
     <ol class="node-ports">
