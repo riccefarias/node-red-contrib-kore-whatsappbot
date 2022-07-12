@@ -1,33 +1,33 @@
 module.exports = function (RED) {
     'use strict'
 
-    const {existsSync,readFileSync} = require("fs");
+    const { existsSync, readFileSync } = require("fs");
 
-    function WhatsappBot (config) {
+    function WhatsappBot(config) {
         RED.nodes.createNode(this, config)
 
 
         const node = this
         node.name = config.name;
-	node.width = 160;
+        node.width = 160;
 
         const clientNode = RED.nodes.getNode(config.client)
 
 
-        function loadContactSession(id){
-            const sessionDir = "/data/sessions/"+clientNode.id+"-"+id.split("@")[0]+".json";
+        function loadContactSession(id) {
+            const sessionDir = clientNode.storage + "/contacts/" + id.split("@")[0] + ".json";
 
-            if(existsSync(sessionDir)){
+            if (existsSync(sessionDir)) {
                 return JSON.parse(readFileSync(sessionDir).toString());
-            }else{
+            } else {
                 return false;
             }
         }
 
 
-	function sendImageToClient(image, msg) {
-            var d = { id:node.id }
-            if (image !== null) { 
+        function sendImageToClient(image, msg) {
+            var d = { id: node.id }
+            if (image !== null) {
                 if (Buffer.isBuffer(image)) {
                     image = image.toString("base64");
                 }
@@ -35,9 +35,9 @@ module.exports = function (RED) {
             }
             try {
                 RED.comms.publish("image", d);
-                if (msg) { node.status({text:msg}); }
+                if (msg) { node.status({ text: msg }); }
             }
-            catch(e) {
+            catch (e) {
                 node.error("Invalid image", msg);
             }
         }
@@ -45,24 +45,24 @@ module.exports = function (RED) {
 
 
 
-        function registerEvents () {
+        function registerEvents() {
             clientNode.on('stateChange', onStateChange.bind(node))
             // clientNode.on('clientEvent', onClientEvent.bind(node))
         }
 
 
-        function onStateChange (socketState) {
+        function onStateChange(socketState) {
 
 
 
-            if(socketState.connection){
-                setStatus(socketState.connection,socketState.connection);
+            if (socketState.connection) {
+                setStatus(socketState.connection, socketState.connection);
 
                 node.send({ topic: 'stateChange', payload: socketState })
             }
-            if(socketState.qr){
+            if (socketState.qr) {
 
-                setStatus('authenticate','waiting for qrcode scanning');
+                setStatus('authenticate', 'waiting for qrcode scanning');
             }
 
             //setStatus(SOCKETS_STATE[socketState], 'Socket: ' + socketState)
@@ -70,7 +70,7 @@ module.exports = function (RED) {
 
 
 
-        function onChatEvent (event, chatId, ...args) {
+        function onChatEvent(event, chatId, ...args) {
             node.send({ topic: event, chatId: chatId, args: args })
         }
 
@@ -82,29 +82,29 @@ module.exports = function (RED) {
 
             clientNode.on('qrCode', function (qrCode) {
 
-		
-                 const base64 = qrCode.replace(/^data:image\/[a-z]+;base64,/, "");
-                 sendImageToClient(base64, 'Scan QrCode');
 
-            
+                const base64 = qrCode.replace(/^data:image\/[a-z]+;base64,/, "");
+                sendImageToClient(base64, 'Scan QrCode');
+
+
                 node.send([
                     { topic: 'qrCode', payload: qrCode }
                     , null])
             })
             clientNode.on('message', function (payload) {
 
-                if(payload.fromMe){
-                    return ;
+                if (payload.fromMe) {
+                    return;
                 }
 
                 let outNode = node;
 
                 const contactSession = loadContactSession(payload.contactId);
-                if(contactSession.lastNodeId){
+                if (contactSession.lastNodeId) {
                     const lastNode = RED.nodes.getNode(contactSession.lastNodeId);
 
-                    if(lastNode){
-                        lastNode.emit("input",{
+                    if (lastNode) {
+                        lastNode.emit("input", {
                             topic: 'textMessage',
                             clientId: clientNode.id,
                             originId: node.id,
@@ -113,7 +113,7 @@ module.exports = function (RED) {
                             payload: payload
                         })
 
-                        return ;
+                        return;
                     }
                 }
 
@@ -130,8 +130,8 @@ module.exports = function (RED) {
 
             clientNode.on('buttonResponseMessage', function (payload) {
 
-                if(payload.fromMe){
-                    return ;
+                if (payload.fromMe) {
+                    return;
                 }
 
                 let outNode = node;
@@ -139,18 +139,18 @@ module.exports = function (RED) {
                 const contactSession = loadContactSession(payload.contactId);
                 const lastNode = RED.nodes.getNode(payload.nodeBtn);
 
-                    if(lastNode){
-                        lastNode.emit("input",{
-                            topic: 'buttonResponseMessage',
-                            clientId: clientNode.id,
-                            originId: node.id,
-                            session: contactSession,
-                            executed: false,
-                            payload: payload
-                        })
+                if (lastNode) {
+                    lastNode.emit("input", {
+                        topic: 'buttonResponseMessage',
+                        clientId: clientNode.id,
+                        originId: node.id,
+                        session: contactSession,
+                        executed: false,
+                        payload: payload
+                    })
 
-                        return ;
-                    }
+                    return;
+                }
 
 
                 outNode.send([null, {
@@ -173,12 +173,12 @@ module.exports = function (RED) {
         }
 
         node.on('input', function (msg) {
-            if(msg.topic == 'disconnect'){
+            if (msg.topic == 'disconnect') {
                 clientNode.disconnect();
-            }else if(msg.topic === 'reconnect'){
+            } else if (msg.topic === 'reconnect') {
 
                 clientNode.reconnect();
-            }else if(msg.topic === 'logout'){
+            } else if (msg.topic === 'logout') {
 
                 clientNode.logout();
             }
@@ -186,7 +186,7 @@ module.exports = function (RED) {
         })
 
         // Set node status
-        function setStatus (type, message) {
+        function setStatus(type, message) {
             const types = { info: 'blue', error: 'red', warning: 'yellow', success: 'green' }
 
             node.status({
