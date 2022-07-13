@@ -1,102 +1,131 @@
 <script type="text/javascript">
+    const DEFAULT_IMAGE_WIDTH = 160
 
-	const DEFAULT_IMAGE_WIDTH = 160;
+    RED.nodes.registerType('whatsapp-kore-bot', {
+        category: 'Whatsapp Bot',
+        color: '#25D366',
+        defaults: {
+            name: {
+                value: '',
+            },
+            client: {
+                type: 'whatsapp-kore-client',
+                required: true,
+            },
+        },
+        inputs: 1,
+        outputs: 2,
+        align: 'right',
+        icon: 'whatsapp.png',
+        paletteLabel: 'Whatsapp Bot',
+        label: function () {
+            return this.name || 'Whatsapp Bot'
+        },
+    })
 
-  RED.nodes.registerType('whatsapp-kore-bot', {
-    category: 'Whatsapp Bot',
-    color: '#25D366',
-    defaults: {
-      name: {
-        value: ''
-      },
-      client: {
-        type: 'whatsapp-kore-client',
-        required: true
-      },
-    },
-    inputs: 1,
-    outputs: 2,
-    align: "right",
-    icon: 'whatsapp.png',
-    paletteLabel: 'Whatsapp Bot',
-    label: function () {
-      return this.name || 'Whatsapp Bot'
-    }
-  })
-
-
-  var render = function(id, data, node) {
-        let i = new Image();
-        let $img = document.getElementById("image-output-img-" + id)
+    var render = function (id, data, node) {
+        let i = new Image()
+        let $img = document.getElementById('image-output-img-' + id)
         if (!$img) {
             const $container = document.getElementById(id)
-            if (!$container) { return }
+            if (!$container) {
+                return
+            }
 
-            const bubble = document.createElementNS("http://www.w3.org/2000/svg", 'polyline')
-            bubble.setAttribute('id', "image-output-bubble-" + id)
+            const bubble = document.createElementNS(
+                'http://www.w3.org/2000/svg',
+                'polyline'
+            )
+            bubble.setAttribute('id', 'image-output-bubble-' + id)
             bubble.setAttribute('style', 'fill:#E8F0E8')
             bubble.setAttribute('stroke', '#999999')
             $container.insertBefore(bubble, $container.lastChild.nextSibling)
 
-            const img = document.createElementNS("http://www.w3.org/2000/svg", 'image')
-            img.setAttribute('id', "image-output-img-" + id)
+            const img = document.createElementNS(
+                'http://www.w3.org/2000/svg',
+                'image'
+            )
+            img.setAttribute('id', 'image-output-img-' + id)
             img.setAttribute('x', '0')
             img.setAttribute('y', '45')
-            img.setAttribute('width', node.width || DEFAULT_IMAGE_WIDTH )
-            img.addEventListener("click", function(){remove(id)}, {once:true})
+            img.setAttribute('width', node.width || DEFAULT_IMAGE_WIDTH)
+            img.addEventListener(
+                'click',
+                function () {
+                    remove(id)
+                },
+                { once: true }
+            )
             $container.insertBefore(img, $container.lastChild.nextSibling)
             $img = img
         }
 
         i.onload = function () {
             $img.setAttribute('height', DEFAULT_IMAGE_WIDTH)
-            const bubbleId = $img.id.replace("img", "bubble");
+            const bubbleId = $img.id.replace('img', 'bubble')
             const $bubble = document.getElementById(bubbleId)
             let imgBbox = {}
-            imgBbox.x = 0;
-            imgBbox.y = 45;
-            imgBbox.width = node.width || DEFAULT_IMAGE_WIDTH;
-            imgBbox.height = DEFAULT_IMAGE_WIDTH;
+            imgBbox.x = 0
+            imgBbox.y = 45
+            imgBbox.width = node.width || DEFAULT_IMAGE_WIDTH
+            imgBbox.height = DEFAULT_IMAGE_WIDTH
             const left = imgBbox.x
             const top = imgBbox.y + 2
             const right = imgBbox.x + imgBbox.width
             const bottom = imgBbox.y + imgBbox.height
             const points =
-                (left + 4) + "," + (top - 17) + " " +
-                (left + 4) + "," + top + " " +
-                right + "," + top + " " +
-                right + "," + bottom + " " +
-                left + "," + bottom + " " +
-                left + "," + (top - 21)
+                left +
+                4 +
+                ',' +
+                (top - 17) +
+                ' ' +
+                (left + 4) +
+                ',' +
+                top +
+                ' ' +
+                right +
+                ',' +
+                top +
+                ' ' +
+                right +
+                ',' +
+                bottom +
+                ' ' +
+                left +
+                ',' +
+                bottom +
+                ' ' +
+                left +
+                ',' +
+                (top - 21)
             $bubble.setAttribute('points', points)
         }
 
-        if (data.startsWith("http")) {
-            $img.setAttribute('href', data);
-            i.src = data;
-        }
-        else {
-            $img.setAttribute('href', "data:image/png;base64," + data);
-            i.src = "data:image/png;base64," + data;
+        if (data.startsWith('http')) {
+            $img.setAttribute('href', data)
+            i.src = data
+        } else {
+            $img.setAttribute('href', 'data:image/png;base64,' + data)
+            i.src = 'data:image/png;base64,' + data
         }
     }
 
     const latestImages = {}
 
-    var remove = function(nodeid) {
+    var remove = function (nodeid) {
         const id = nodeid
-        const $img = document.getElementById("image-output-img-" + id)
-        const $bubble = document.getElementById("image-output-bubble-" + id)
+        const $img = document.getElementById('image-output-img-' + id)
+        const $bubble = document.getElementById('image-output-bubble-' + id)
 
         $img && $img.remove()
         $bubble && $bubble.remove()
         delete latestImages[id]
     }
 
-    var redraw = function(node) {
+    var redraw = function (node) {
         const id = node.id
-        const $img = document.getElementById("image-output-img-" + id)
-        const $bubble = document.getElementById("image-output-bubble-" + id)
+        const $img = document.getElementById('image-output-img-' + id)
+        const $bubble = document.getElementById('image-output-bubble-' + id)
 
         $img && $img.remove()
         $bubble && $bubble.remove()
@@ -106,86 +135,106 @@
         }
     }
 
-
     RED.comms.subscribe('image', function (event, data) {
-        if (data.hasOwnProperty("data")) {
+        if (data.hasOwnProperty('data')) {
             latestImages[data.id] = data.data
             render(data.id, data.data, RED.nodes.node(data.id))
-        }
-        else {
-            remove(data.id);
+        } else {
+            remove(data.id)
         }
     })
 </script>
 
-
 <script type="text/html" data-template-name="whatsapp-kore-bot">
-  <div class="form-row">
-    <label for="node-input-client"><i class="icon-globe"></i> <span> Client</span></label>
-    <input type="text" id="node-input-client">
-  </div>
-  <div class="form-row">
-    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-    <input type="text" id="node-input-name" placeholder="Name">
-  </div>
+    <div class="form-row">
+        <label for="node-input-client"
+            ><i class="icon-globe"></i> <span> Client</span></label
+        >
+        <input type="text" id="node-input-client" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
 </script>
 
 <script type="text/html" data-help-name="whatsapp-kore-bot">
-  <p>Used to send/receive data from a Whatsapp Client. Each Bot node by default subscribes to <code>onMessage</code>, <code>onAck</code> and <code>onAddedToGroup</code> events</p>
-  
-  <h3>Input</h3>
-  <ol class="node-ports">
-     <li>Input
-      <dl class="message-properties">
-        <dt>topic <span class="property-type">String</span></dt>
-        <dd>API/Event name</dd>
-    </dl>
-         <dl class="message-properties">
-             <dt>payload <span class="property-type">Array</span></dt>
-             <dd>Args to use to call the API</dd>
-         </dl>
-     </li>
-  </ol>
+    <p>
+        Used to send/receive data from a Whatsapp Client. Each Bot node by
+        default subscribes to <code>onMessage</code>, <code>onAck</code> and
+        <code>onAddedToGroup</code> events
+    </p>
 
-  <h3>Outputs</h3>
-  <ol class="node-ports">
-     <li>Output
-         <dl class="message-properties">
-             <dt>payload <span class="property-type">Array</span></dt>
-             <dd>Args result of the api/event</dd>
-         </dl>
-         <dl class="message-properties">
-             <dt>topic <span class="property-type">String</span></dt>
-             <dd>API name</dd>
-         </dl>
-     </li>
-  </ol>
+    <h3>Input</h3>
+    <ol class="node-ports">
+        <li>
+            Input
+            <dl class="message-properties">
+                <dt>topic <span class="property-type">String</span></dt>
+                <dd>API/Event name</dd>
+            </dl>
+            <dl class="message-properties">
+                <dt>payload <span class="property-type">Array</span></dt>
+                <dd>Args to use to call the API</dd>
+            </dl>
+        </li>
+    </ol>
 
-  <h3>Examples</h3>
+    <h3>Outputs</h3>
+    <ol class="node-ports">
+        <li>
+            Output
+            <dl class="message-properties">
+                <dt>payload <span class="property-type">Array</span></dt>
+                <dd>Args result of the api/event</dd>
+            </dl>
+            <dl class="message-properties">
+                <dt>topic <span class="property-type">String</span></dt>
+                <dd>API name</dd>
+            </dl>
+        </li>
+    </ol>
 
-  <p>If you want to subscribe to <code>onParticipantsChanged</code> or <code>onLiveLocation</code>, send the request with only the <code>chatId</code> and 
-    it will subscribe for those events on that chat. The output <code>msg</code> contain also a property <code>chatId</code> with the id of the chat that has emitted the event</p>
+    <h3>Examples</h3>
 
-  <p>Function node code for calling <code>sendMessageToId</code> API:</p>
-  <code>
-    msg.payload = { topic: 'sendMessageToId', payload: [ 'xxxxxxxxxxxx@c.us', 'Hello from Node-Red'] }
-    return msg
-  </code>
+    <p>
+        If you want to subscribe to <code>onParticipantsChanged</code> or
+        <code>onLiveLocation</code>, send the request with only the
+        <code>chatId</code> and it will subscribe for those events on that chat.
+        The output <code>msg</code> contain also a property
+        <code>chatId</code> with the id of the chat that has emitted the event
+    </p>
 
-  <p>Result of previous message:</p>
-  <code>
-    { topic: 'sendMessageToId', payload: [ 'true_xxxxxxxxxx@c.us_xxxxxxxxxxxx' ], origin: { //the origin message request } }
-  </code>
+    <p>Function node code for calling <code>sendMessageToId</code> API:</p>
+    <code>
+        msg.payload = { topic: 'sendMessageToId', payload: [
+        'xxxxxxxxxxxx@c.us', 'Hello from Node-Red'] } return msg
+    </code>
 
- <p>Output for an <code>onMessage</code> event:</p>
- <code>
-  { topic: 'onMessage', payload: [ { // the message object } ] }
- </code>
-  
-  <h3>References</h3>
+    <p>Result of previous message:</p>
+    <code>
+        { topic: 'sendMessageToId', payload: [
+        'true_xxxxxxxxxx@c.us_xxxxxxxxxxxx' ], origin: { //the origin message
+        request } }
+    </code>
+
+    <p>Output for an <code>onMessage</code> event:</p>
+    <code>
+        { topic: 'onMessage', payload: [ { // the message object } ] }
+    </code>
+
+    <h3>References</h3>
     <ul>
-        <li><a href="https://github.com/danielcardeenas/sulla">APIs</a> - List of available apis</li>
-        <li><a href="https://github.com/robertsLando/node-red-contrib-whatsappbot">GitHub</a> - the node github repository</li>
+        <li>
+            <a href="https://github.com/danielcardeenas/sulla">APIs</a> - List
+            of available apis
+        </li>
+        <li>
+            <a
+                href="https://github.com/robertsLando/node-red-contrib-whatsappbot"
+                >GitHub</a
+            >
+            - the node github repository
+        </li>
     </ul>
-  
-  </script>
+</script>

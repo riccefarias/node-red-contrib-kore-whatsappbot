@@ -1,52 +1,41 @@
-const {existsSync, readFileSync} = require("fs");
 module.exports = function (RED) {
     'use strict'
-    const {writeFileSync} = require("fs");
+    const { writeFileSync } = require('fs')
 
-    function WhatsappAddTag (config) {
+    function WhatsappAddTag(config) {
         RED.nodes.createNode(this, config)
-
 
         const node = this
         node.name = config.name
-        node.to = config.to;
-        node.tag = config.tag;
-        node.sendRead = config.sendRead;
+        node.to = config.to
+        node.tag = config.tag
+        node.sendRead = config.sendRead
 
+        const clientNode = RED.nodes.getNode(config.client)
 
-        const clientNode = RED.nodes.getNode(config.client);
-        
+        function saveState(id, data) {
+            const sessionDir =
+                clientNode.storage + '/contacts/' + id.split('@')[0] + '.json'
 
-        function saveState(id,data){
-            const sessionDir = clientNode.storage+"/contacts/"+id.split("@")[0]+".json";
-
-            if(data){
-                return writeFileSync(sessionDir,JSON.stringify(data));
-            }else{
-                return false;
+            if (data) {
+                return writeFileSync(sessionDir, JSON.stringify(data))
+            } else {
+                return false
             }
         }
 
-
         if (clientNode) {
-            console.log(clientNode);
+            console.log(clientNode)
         }
-        
-        
 
         node.on('input', async function (msg) {
-            const to = msg.to || msg.payload.contactId || node.to;
-	    const tag = msg.tag || node.tag;
-            
-            clientNode.addTag(to,tag);
-            
-            node.send([null,msg]);
-            
+            const to = msg.to || msg.payload.contactId || node.to
+            const tag = msg.tag || node.tag
 
+            clientNode.addTag(to, tag)
+
+            node.send([null, msg])
         })
-
-
-
     }
 
     RED.nodes.registerType('whatsapp-addtag', WhatsappAddTag)

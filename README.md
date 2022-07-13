@@ -1,4 +1,5 @@
 # Whatsapp bot nodes for Node-RED
+
 [![Platform](https://img.shields.io/badge/platform-Node--RED-red)](https://nodered.org)
 ![License](https://img.shields.io/github/license/riccefarias/node-red-contrib-kore-whatsappbot.svg)
 [![Downloads](https://img.shields.io/npm/dm/node-red-contrib-kore-whatsappbot.svg)](https://www.npmjs.com/package/node-red-contrib-kore-whatsappbot)
@@ -7,18 +8,17 @@
 [![Telegram](https://img.shields.io/badge/Join-Telegram%20Chat-blue.svg?logo=telegram)](https://t.me/codechatBR)
 ![Build](https://img.shields.io/github/workflow/status/riccefarias/node-red-contrib-kore-whatsappbot/Node.js%20CI?event=push)
 
-
-
 # Thanks for your donation
+
 If you want to support this free project. Any help is welcome. You can donate by clicking one of the following links:
 <a target="blank" href="https://www.paypal.com/donate/?hosted_button_id=86YR4JV5DGUW2"><img src="https://img.shields.io/badge/Donate-PayPal-blue.svg"/></a>
 
-
 # Doações no Brasil
+
 Se você quiser doar através do PIX, poderá enviar para a chave angelo@kore.ag
 
-
 # Installation
+
 [![NPM](https://nodei.co/npm/node-red-contrib-kore-whatsappbot.png?downloads=true)](https://nodei.co/npm/https://nodei.co/npm/node-red-contrib-kore-whatsappbot.png?downloads=true/)
 
 You can install the nodes using node-red's "Manage palette" in the side bar.
@@ -31,10 +31,9 @@ Or run the following command in the root directory of your Node-RED installation
 
 [![Example](https://raw.githubusercontent.com/riccefarias/node-red-contrib-kore-whatsappbot/master/examples/img.png)](https://raw.githubusercontent.com/riccefarias/node-red-contrib-kore-whatsappbot/master/examples/base%20flow.json)
 
-
 # License
-Port Author: Angelo Farias
 
+Port Author: Angelo Farias
 
 The MIT License (MIT)
 Copyright (c) <year> <copyright holders>

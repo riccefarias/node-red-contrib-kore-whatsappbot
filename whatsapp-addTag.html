@@ -1,60 +1,63 @@
 <script type="text/javascript">
-    RED.nodes.registerType('whatsapp-addtag', {        
+    RED.nodes.registerType('whatsapp-addtag', {
         category: 'Whatsapp Bot',
         color: '#9eccb2',
         defaults: {
             name: {
-                value: ''
+                value: '',
             },
             client: {
                 type: 'whatsapp-kore-client',
-                required: true
-            },            
-            sendRead: {
-                value: true
+                required: true,
             },
-            to: {value: ''},
-            tag: {value: ''},
+            sendRead: {
+                value: true,
+            },
+            to: { value: '' },
+            tag: { value: '' },
         },
         inputs: 1,
         outputs: 2,
-        align: "left",
+        align: 'left',
         icon: 'font-awesome/fa-commenting-o',
         paletteLabel: 'Adicionar Etiqueta',
         label: function () {
             return this.name || 'Adicionar Etiqueta'
         },
-        outputLabels: function(index){
-            return (index===0)?'Etiqueta Adicionada':'Fluxo';
-        }
+        outputLabels: function (index) {
+            return index === 0 ? 'Etiqueta Adicionada' : 'Fluxo'
+        },
     })
 </script>
 
-
 <script type="text/html" data-template-name="whatsapp-addtag">
     <div class="form-row">
-        <label for="node-input-client"><i class="icon-globe"></i> <span> Cliente WhatsApp</span></label>
-        <input type="text" id="node-input-client">
+        <label for="node-input-client"
+            ><i class="icon-globe"></i> <span> Cliente WhatsApp</span></label
+        >
+        <input type="text" id="node-input-client" />
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
-    <hr>
-   
+    <hr />
+
     <div class="form-row">
-        <label for="node-input-sendRead"><i class="fa fa-tag"></i> Visualizar</label>
-        <input type="checkbox" id="node-input-sendRead">
+        <label for="node-input-sendRead"
+            ><i class="fa fa-tag"></i> Visualizar</label
+        >
+        <input type="checkbox" id="node-input-sendRead" />
     </div>
 
     <div class="form-row">
         <label for="node-input-to"><i class="fa fa-tag"></i> Enviar para</label>
-        <input type="text" id="node-input-to" placeholder="msg.to">
+        <input type="text" id="node-input-to" placeholder="msg.to" />
     </div>
 
     <div class="form-row">
         <label for="node-input-tag"><i class="fa fa-tag"></i> Etiqueta</label>
-        <input type="text" id="node-input-tag" placeholder="msg.tag">
+        <input type="text" id="node-input-tag" placeholder="msg.tag" />
     </div>
 </script>
 
@@ -63,10 +66,14 @@
 
     <h3>Input</h3>
     <ol class="node-ports">
-        <li>Input
+        <li>
+            Input
             <dl class="message-properties">
                 <dt>to <span class="property-type">String</span></dt>
-                <dd>Contact (full whatsapp address eg: {DDI}{DDD}{PHONE}@s.whatsapp.net)</dd>
+                <dd>
+                    Contact (full whatsapp address eg:
+                    {DDI}{DDD}{PHONE}@s.whatsapp.net)
+                </dd>
             </dl>
             <dl class="message-properties">
                 <dt>Force Send <span class="property-type">Boolean</span></dt>
@@ -81,12 +88,14 @@
 
     <h3>Outputs</h3>
     <ol class="node-ports">
-        <li>Output (Status Message)
+        <li>
+            Output (Status Message)
             <dl class="message-properties">
                 <dt>inform status of message sent to contact</dt>
             </dl>
         </li>
-        <li>Output (Flow)
+        <li>
+            Output (Flow)
             <dl class="message-properties">
                 <dt>continue flow operation</dt>
             </dl>
@@ -95,14 +104,14 @@
 
     <h3>Examples</h3>
 
-    <p>You can send message with fixed values inside this node configuration, or send dinamic data using flow.</p>
+    <p>
+        You can send message with fixed values inside this node configuration,
+        or send dinamic data using flow.
+    </p>
 
     <p>Example message flow</p>
     <code>
-        msg = { to: 'xxxxxxxx@s.whatsapp.net',message: 'Hello World!',force: true }
-        return msg
+        msg = { to: 'xxxxxxxx@s.whatsapp.net',message: 'Hello World!',force:
+        true } return msg
     </code>
-
-
-
 </script>
