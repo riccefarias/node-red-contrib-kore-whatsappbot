@@ -1,6 +1,5 @@
 module.exports = function (RED) {
     'use strict'
-    const { writeFileSync } = require('fs')
 
     function WhatsappAddTag(config) {
         RED.nodes.createNode(this, config)
