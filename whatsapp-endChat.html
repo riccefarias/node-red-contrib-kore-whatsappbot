@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    RED.nodes.registerType('whatsapp-endchat', {
+        category: 'Whatsapp Bot',
+        color: '#c4cc9e',
+        defaults: {
+            client: {
+                type: 'whatsapp-kore-client',
+                required: true,
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: 'font-awesome/fa-times',
+        paletteLabel: 'Finalizar conversa',
+        label: function () {
+            return 'Finalizar conversa'
+        },
+        outputLabels: function (index) {
+            return index === 0 ? 'Após Gravar' : 'Fluxo'
+        },
+    })
+</script>
+
+<script type="text/html" data-template-name="whatsapp-endchat">
+    <div class="form-row">
+        <label for="node-input-client"
+            ><i class="icon-globe"></i> <span> Cliente WhatsApp</span></label
+        >
+        <input type="text" id="node-input-client" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="whatsapp-endchat">
+    <p>Reset last node, ending chat and returning contact to initial position</p>
+</script>
