@@ -2,15 +2,13 @@ module.exports = function (RED) {
     'use strict'
     const { unlinkSync, existsSync, mkdirSync } = require('fs')
     const makeWASocket = require('@adiwajshing/baileys')
-    const { WASocket, useSingleFileAuthState } = makeWASocket
+    const { useSingleFileAuthState } = makeWASocket
     const QR = require('qrcode-base64')
     const P = require('pino')
 
     // Imports the Google Cloud client library
     const textToSpeech = require('@google-cloud/text-to-speech')
     const ttsclient = new textToSpeech.TextToSpeechClient()
-
-    const noop = () => {}
 
     let client
 

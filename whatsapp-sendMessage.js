@@ -1,6 +1,7 @@
+const { saveContactStateFactory } = require('./helpers')
+
 module.exports = function (RED) {
     'use strict'
-    const { writeFileSync } = require('fs')
 
     function WhatsappSendMessage(config) {
         RED.nodes.createNode(this, config)
@@ -23,16 +24,7 @@ module.exports = function (RED) {
             })
         }
 
-        function saveState(id, data) {
-            const sessionDir =
-                clientNode.storage + '/contacts/' + id.split('@')[0] + '.json'
-
-            if (data) {
-                return writeFileSync(sessionDir, JSON.stringify(data))
-            } else {
-                return false
-            }
-        }
+        const saveContactState = saveContactStateFactory(clientNode)
 
         if (clientNode) {
             console.log(clientNode)
@@ -52,7 +44,7 @@ module.exports = function (RED) {
                 }
 
                 msg.session['lastNodeId'] = node.id
-                saveState(to.split('@')[0], msg.session)
+                saveContactState(to.split('@')[0], msg.session)
             }
 
             if (
