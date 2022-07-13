@@ -21,14 +21,7 @@
         "template": "Olá, seja bem-vindo a Kore.AG",
         "x": 570,
         "y": 180,
-        "wires": [
-            [
-                "75d4adf158f97af0"
-            ],
-            [
-                "b3e0e5e62c4647f7"
-            ]
-        ]
+        "wires": [["75d4adf158f97af0"], ["b3e0e5e62c4647f7"]]
     },
     {
         "id": "a4e8d93c2b25170c",
@@ -44,12 +37,7 @@
         "template": "Eu sou o assistente virtual aqui da Kore.AG, e vou te guiar por aqui...",
         "x": 770,
         "y": 260,
-        "wires": [
-            [],
-            [
-                "23ff95d7f5b43fa9"
-            ]
-        ]
+        "wires": [[], ["23ff95d7f5b43fa9"]]
     },
     {
         "id": "b3e0e5e62c4647f7",
@@ -70,11 +58,7 @@
         "outputs": 1,
         "x": 420,
         "y": 260,
-        "wires": [
-            [
-                "a4e8d93c2b25170c"
-            ]
-        ]
+        "wires": [["a4e8d93c2b25170c"]]
     },
     {
         "id": "23ff95d7f5b43fa9",
@@ -95,11 +79,7 @@
         "outputs": 1,
         "x": 420,
         "y": 340,
-        "wires": [
-            [
-                "5f125208206ea113"
-            ]
-        ]
+        "wires": [["5f125208206ea113"]]
     },
     {
         "id": "5f125208206ea113",
@@ -115,12 +95,7 @@
         "template": "Bom, pra começar, que tal me dizer o seu nome?",
         "x": 710,
         "y": 340,
-        "wires": [
-            [],
-            [
-                "c235a9cab58449b5"
-            ]
-        ]
+        "wires": [[], ["c235a9cab58449b5"]]
     },
     {
         "id": "c235a9cab58449b5",
@@ -131,12 +106,7 @@
         "chave": "nome",
         "x": 990,
         "y": 340,
-        "wires": [
-            [
-                "bef655bbe55772be",
-                "fbf418c3826f4af5"
-            ]
-        ]
+        "wires": [["bef655bbe55772be", "fbf418c3826f4af5"]]
     },
     {
         "id": "fbf418c3826f4af5",
@@ -152,14 +122,7 @@
         "template": "Olá {{nome}}, que bom que você voltou 😁",
         "x": 970,
         "y": 500,
-        "wires": [
-            [
-                "6611cc3cb9738ce0"
-            ],
-            [
-                "af6513cf06cd6846"
-            ]
-        ]
+        "wires": [["6611cc3cb9738ce0"], ["af6513cf06cd6846"]]
     },
     {
         "id": "bef655bbe55772be",
@@ -223,18 +186,10 @@
         "x": 1340,
         "y": 620,
         "wires": [
-            [
-                "7406ed77f58b4494"
-            ],
-            [
-                "ba729bbbd16395ff"
-            ],
-            [
-                "e39ab7f985a259eb"
-            ],
-            [
-                "1ae821dd3be52c6f"
-            ],
+            ["7406ed77f58b4494"],
+            ["ba729bbbd16395ff"],
+            ["e39ab7f985a259eb"],
+            ["1ae821dd3be52c6f"],
             []
         ]
     },
@@ -268,12 +223,7 @@
         "libs": [],
         "x": 320,
         "y": 180,
-        "wires": [
-            [],
-            [
-                "1ea3a73fdfa1ae23"
-            ]
-        ]
+        "wires": [[], ["1ea3a73fdfa1ae23"]]
     },
     {
         "id": "e39ab7f985a259eb",
@@ -289,10 +239,7 @@
         "template": "O Projeto Tarkan tem como principio ser uma plataforma\nincremental para uso em conjunto com o Traccar. A proposta\nconsiste na disposicão de opções de temas visuais (front-end)\nelaborados cuidadosamente a fim de proporcionar uma melhor\nexperiência aos usuários, substituindo assim o acesso web, bem\ncomo disponibilizando de forma responsiva e em WPA para\nacesso em dispositivos móveis.",
         "x": 1720,
         "y": 600,
-        "wires": [
-            [],
-            []
-        ]
+        "wires": [[], []]
     },
     {
         "id": "1ae821dd3be52c6f",
@@ -308,10 +255,7 @@
         "template": "Possuimos uma plataforma que possibilita automatizar diversas tarefas dentro do whatsapp, como esta aqui!",
         "x": 1710,
         "y": 640,
-        "wires": [
-            [],
-            []
-        ]
+        "wires": [[], []]
     },
     {
         "id": "ba729bbbd16395ff",
@@ -327,10 +271,7 @@
         "template": "JasSy é uma plataforma de gestão comercial completa para o gerenciamento do seu bar, delivery ou restaurante.",
         "x": 1720,
         "y": 560,
-        "wires": [
-            [],
-            []
-        ]
+        "wires": [[], []]
     },
     {
         "id": "af6513cf06cd6846",
@@ -351,11 +292,7 @@
         "outputs": 1,
         "x": 1080,
         "y": 620,
-        "wires": [
-            [
-                "7d8ff1e8e5101ef4"
-            ]
-        ]
+        "wires": [["7d8ff1e8e5101ef4"]]
     },
     {
         "id": "947b4be4da50746e",
@@ -397,11 +334,7 @@
         "libs": [],
         "x": 840,
         "y": 120,
-        "wires": [
-            [
-                "2e5d9055939d1678"
-            ]
-        ]
+        "wires": [["2e5d9055939d1678"]]
     },
     {
         "id": "eb59499aee0a1c5f",
@@ -411,12 +344,7 @@
         "client": "520de200c8c324fd",
         "x": 140,
         "y": 180,
-        "wires": [
-            [],
-            [
-                "287db895b72de9a8"
-            ]
-        ]
+        "wires": [[], ["287db895b72de9a8"]]
     },
     {
         "id": "520de200c8c324fd",

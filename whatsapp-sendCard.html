@@ -1,123 +1,148 @@
 <script type="text/javascript">
-  RED.nodes.registerType('whatsapp-sendcard', {
-    category: 'Whatsapp Bot',
-    color: '#25D366',
-    defaults: {
-      name: {
-        value: ''
-      },
-      client: {
-        type: 'whatsapp-client',
-        required: true
-      },
-      to: {
-        value: ''
-      },
-      displayName: {
-        value: ''
-      },
-      cards: {
-        value: ''
-      }
-    },
-    inputs: 1,
-    outputs: 1,
-    align: "left",
-    icon: 'whatsapp.png',
-    paletteLabel: 'sendCard',
-    label: function () {
-      return this.name || 'sendCard'
-    }
-  })
+    RED.nodes.registerType('whatsapp-sendcard', {
+        category: 'Whatsapp Bot',
+        color: '#25D366',
+        defaults: {
+            name: {
+                value: '',
+            },
+            client: {
+                type: 'whatsapp-client',
+                required: true,
+            },
+            to: {
+                value: '',
+            },
+            displayName: {
+                value: '',
+            },
+            cards: {
+                value: '',
+            },
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: 'whatsapp.png',
+        paletteLabel: 'sendCard',
+        label: function () {
+            return this.name || 'sendCard'
+        },
+    })
 </script>
 
-
 <script type="text/html" data-template-name="whatsapp-sendcard">
-  <div class="form-row">
-    <label for="node-input-client"><i class="icon-globe"></i> <span> Client</span></label>
-    <input type="text" id="node-input-client">
-  </div>
-  <div class="form-row">
-    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-    <input type="text" id="node-input-name" placeholder="Name">
-  </div>
+    <div class="form-row">
+        <label for="node-input-client"
+            ><i class="icon-globe"></i> <span> Client</span></label
+        >
+        <input type="text" id="node-input-client" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
 
-	<hr>
-  <div class="form-row">
-    <label for="node-input-to"><i class="fa fa-tag"></i> Contact (full whatsapp address)</label>
-    <input type="text" id="node-input-to" placeholder="msg.to">
-  </div>
+    <hr />
+    <div class="form-row">
+        <label for="node-input-to"
+            ><i class="fa fa-tag"></i> Contact (full whatsapp address)</label
+        >
+        <input type="text" id="node-input-to" placeholder="msg.to" />
+    </div>
 
-  <div class="form-row">
-    <label for="node-input-displayName"><i class="fa fa-tag"></i> Contact Name</label>
-    <input type="text" id="node-input-displayName" placeholder="msg.displayName">
-  </div>
+    <div class="form-row">
+        <label for="node-input-displayName"
+            ><i class="fa fa-tag"></i> Contact Name</label
+        >
+        <input
+            type="text"
+            id="node-input-displayName"
+            placeholder="msg.displayName"
+        />
+    </div>
 
-  <div class="form-row">
-    <label for="node-input-cards"><i class="fa fa-tag"></i> Card Data</label>
-    <input type="text" id="node-input-cards" placeholder="msg.cards">
-  </div>
-
-
-
+    <div class="form-row">
+        <label for="node-input-cards"
+            ><i class="fa fa-tag"></i> Card Data</label
+        >
+        <input type="text" id="node-input-cards" placeholder="msg.cards" />
+    </div>
 </script>
 
 <script type="text/html" data-help-name="whatsapp-sendcard">
-  <p>Used to send Location message to whatsapp contact.</p>
-  
-  <h3>Input</h3>
-  <ol class="node-ports">
-     <li>Input
-      <dl class="message-properties">
-        <dt>topic <span class="property-type">String</span></dt>
-        <dd>API/Event name</dd>
-    </dl>
-         <dl class="message-properties">
-             <dt>payload <span class="property-type">Array</span></dt>
-             <dd>Args to use to call the API</dd>
-         </dl>
-     </li>
-  </ol>
+    <p>Used to send Location message to whatsapp contact.</p>
 
-  <h3>Outputs</h3>
-  <ol class="node-ports">
-     <li>Output
-         <dl class="message-properties">
-             <dt>payload <span class="property-type">Array</span></dt>
-             <dd>Args result of the api/event</dd>
-         </dl>
-         <dl class="message-properties">
-             <dt>topic <span class="property-type">String</span></dt>
-             <dd>API name</dd>
-         </dl>
-     </li>
-  </ol>
+    <h3>Input</h3>
+    <ol class="node-ports">
+        <li>
+            Input
+            <dl class="message-properties">
+                <dt>topic <span class="property-type">String</span></dt>
+                <dd>API/Event name</dd>
+            </dl>
+            <dl class="message-properties">
+                <dt>payload <span class="property-type">Array</span></dt>
+                <dd>Args to use to call the API</dd>
+            </dl>
+        </li>
+    </ol>
 
-  <h3>Examples</h3>
+    <h3>Outputs</h3>
+    <ol class="node-ports">
+        <li>
+            Output
+            <dl class="message-properties">
+                <dt>payload <span class="property-type">Array</span></dt>
+                <dd>Args result of the api/event</dd>
+            </dl>
+            <dl class="message-properties">
+                <dt>topic <span class="property-type">String</span></dt>
+                <dd>API name</dd>
+            </dl>
+        </li>
+    </ol>
 
-  <p>If you want to subscribe to <code>onParticipantsChanged</code> or <code>onLiveLocation</code>, send the request with only the <code>chatId</code> and 
-    it will subscribe for those events on that chat. The output <code>msg</code> contain also a property <code>chatId</code> with the id of the chat that has emitted the event</p>
+    <h3>Examples</h3>
 
-  <p>Function node code for calling <code>sendMessageToId</code> API:</p>
-  <code>
-    msg.payload = { topic: 'sendMessageToId', payload: [ 'xxxxxxxxxxxx@c.us', 'Hello from Node-Red'] }
-    return msg
-  </code>
+    <p>
+        If you want to subscribe to <code>onParticipantsChanged</code> or
+        <code>onLiveLocation</code>, send the request with only the
+        <code>chatId</code> and it will subscribe for those events on that chat.
+        The output <code>msg</code> contain also a property
+        <code>chatId</code> with the id of the chat that has emitted the event
+    </p>
 
-  <p>Result of previous message:</p>
-  <code>
-    { topic: 'sendMessageToId', payload: [ 'true_xxxxxxxxxx@c.us_xxxxxxxxxxxx' ], origin: { //the origin message request } }
-  </code>
+    <p>Function node code for calling <code>sendMessageToId</code> API:</p>
+    <code>
+        msg.payload = { topic: 'sendMessageToId', payload: [
+        'xxxxxxxxxxxx@c.us', 'Hello from Node-Red'] } return msg
+    </code>
 
- <p>Output for an <code>onMessage</code> event:</p>
- <code>
-  { topic: 'onMessage', payload: [ { // the message object } ] }
- </code>
-  
-  <h3>References</h3>
+    <p>Result of previous message:</p>
+    <code>
+        { topic: 'sendMessageToId', payload: [
+        'true_xxxxxxxxxx@c.us_xxxxxxxxxxxx' ], origin: { //the origin message
+        request } }
+    </code>
+
+    <p>Output for an <code>onMessage</code> event:</p>
+    <code>
+        { topic: 'onMessage', payload: [ { // the message object } ] }
+    </code>
+
+    <h3>References</h3>
     <ul>
-        <li><a href="https://github.com/danielcardeenas/sulla">APIs</a> - List of available apis</li>
-        <li><a href="https://github.com/robertsLando/node-red-contrib-whatsappbot">GitHub</a> - the node github repository</li>
+        <li>
+            <a href="https://github.com/danielcardeenas/sulla">APIs</a> - List
+            of available apis
+        </li>
+        <li>
+            <a
+                href="https://github.com/robertsLando/node-red-contrib-whatsappbot"
+                >GitHub</a
+            >
+            - the node github repository
+        </li>
     </ul>
-  
-  </script>
+</script>

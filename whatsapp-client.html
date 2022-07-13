@@ -3,60 +3,70 @@
         category: 'config',
         defaults: {
             session: {
-                value: "session",
-                required: true
+                value: 'session',
+                required: true,
             },
             agent: {
-                value: "Kore",
-                required: true
+                value: 'Kore',
+                required: true,
             },
             version: {
-                value: "2,2204,13",
-                required: true
+                value: '2,2204,13',
+                required: true,
             },
             storage: {
-                value: "data/whatsapp",
-                required: true
-            }
+                value: 'data/whatsapp',
+                required: true,
+            },
         },
         label: function () {
-            return 'whatsapp' + ":" + this.session;
-        }
-    });
+            return 'whatsapp' + ':' + this.session
+        },
+    })
 </script>
 
 <script type="text/html" data-template-name="whatsapp-kore-client">
     <div class="form-row">
-        <label for="node-config-input-session"><i class="icon-bookmark"></i> Session</label>
-        <input type="text" id="node-config-input-session">
+        <label for="node-config-input-session"
+            ><i class="icon-bookmark"></i> Session</label
+        >
+        <input type="text" id="node-config-input-session" />
     </div>
     <div class="form-row">
-        <label for="node-config-input-agent"><i class="icon-bookmark"></i> Agent</label>
-        <input type="text" id="node-config-input-agent">
+        <label for="node-config-input-agent"
+            ><i class="icon-bookmark"></i> Agent</label
+        >
+        <input type="text" id="node-config-input-agent" />
     </div>
     <div class="form-row">
-        <label for="node-config-input-version"><i class="icon-bookmark"></i> Version</label>
-        <input type="text" id="node-config-input-version">
+        <label for="node-config-input-version"
+            ><i class="icon-bookmark"></i> Version</label
+        >
+        <input type="text" id="node-config-input-version" />
     </div>
     <div class="form-row">
-        <label for="node-config-input-storage"><i class="icon-bookmark"></i> Storage</label>
-        <input type="text" id="node-config-input-storage">
+        <label for="node-config-input-storage"
+            ><i class="icon-bookmark"></i> Storage</label
+        >
+        <input type="text" id="node-config-input-storage" />
     </div>
 </script>
 
 <script type="text/html" data-help-name="whatsapp-kore-client">
-    <p>Create a whatsapp client to use for sending actions and receiving events from</p>
+    <p>
+        Create a whatsapp client to use for sending actions and receiving events
+        from
+    </p>
     <h3>Details</h3>
     <p>
-        <code>session</code>: will be the name of the client, must be unique, a folder with this name will be created in <code>your storage path</code> directory
+        <code>session</code>: will be the name of the client, must be unique, a
+        folder with this name will be created in
+        <code>your storage path</code> directory
     </p>
     <p>
-        <code>agent</code>: name of device client that will apear on whatsapp device list.
+        <code>agent</code>: name of device client that will apear on whatsapp
+        device list.
     </p>
-    <p>
-        <code>version</code>: version of WAWeb to emulate
-    </p>
-    <p>
-        <code>storage</code>: full path where to store your data.
-    </p>
+    <p><code>version</code>: version of WAWeb to emulate</p>
+    <p><code>storage</code>: full path where to store your data.</p>
 </script>

@@ -1,108 +1,122 @@
 <script type="text/javascript">
     RED.nodes.registerType('whatsapp-sendimage', {
-        oneditprepare: function() {
-            var that = this;
+        oneditprepare: function () {
+            var that = this
 
             if (!this.syntax) {
-                this.syntax = 'mustache';
+                this.syntax = 'mustache'
             }
 
             this.editor = RED.editor.createEditor({
                 id: 'node-input-template-editor',
                 mode: 'ace/mode/handlebars',
-                value: $("#node-input-template").val()
-            });
+                value: $('#node-input-template').val(),
+            })
 
-            this.editor.focus();
-
+            this.editor.focus()
         },
-        oneditsave: function() {
-            $("#node-input-template").val(this.editor.getValue());
-            this.editor.destroy();
-            delete this.editor;
+        oneditsave: function () {
+            $('#node-input-template').val(this.editor.getValue())
+            this.editor.destroy()
+            delete this.editor
         },
-        oneditcancel: function() {
-            this.editor.destroy();
-            delete this.editor;
+        oneditcancel: function () {
+            this.editor.destroy()
+            delete this.editor
         },
         category: 'Whatsapp Bot',
         color: '#9eccb2',
         defaults: {
             name: {
-                value: ''
+                value: '',
             },
             client: {
                 type: 'whatsapp-kore-client',
-                required: true
+                required: true,
             },
             force: {
-                value: false
+                value: false,
             },
             typing: {
-                value: true
+                value: true,
             },
             sendRead: {
-                value: true
+                value: true,
             },
-            to: {value: ''},
-            imageUrl: {value: ''},
-            format: {value:"handlebars"},
-            syntax: {value:"mustache"},
+            to: { value: '' },
+            imageUrl: { value: '' },
+            format: { value: 'handlebars' },
+            syntax: { value: 'mustache' },
             template: {
-                value:"This is the payload: {{payload}} !"
+                value: 'This is the payload: {{payload}} !',
             },
         },
         inputs: 1,
         outputs: 2,
-        align: "left",
+        align: 'left',
         icon: 'font-awesome/fa-commenting-o',
         paletteLabel: 'Enviar Imagem',
         label: function () {
             return this.name || this.template || 'Enviar Imagem'
         },
-        outputLabels: function(index){
-            return (index===0)?'Status da Mensagem':'Mensagem enviada';
-        }
+        outputLabels: function (index) {
+            return index === 0 ? 'Status da Mensagem' : 'Mensagem enviada'
+        },
     })
 </script>
 
-
 <script type="text/html" data-template-name="whatsapp-sendimage">
     <div class="form-row">
-        <label for="node-input-client"><i class="icon-globe"></i> <span> Cliente WhatsApp</span></label>
-        <input type="text" id="node-input-client">
+        <label for="node-input-client"
+            ><i class="icon-globe"></i> <span> Cliente WhatsApp</span></label
+        >
+        <input type="text" id="node-input-client" />
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
-    <hr>
+    <hr />
     <div class="form-row">
-        <label for="node-input-force"><i class="fa fa-tag"></i> Forçar envio</label>
-        <input type="checkbox" id="node-input-force">
-    </div>
-    <div class="form-row">
-        <label for="node-input-typing"><i class="fa fa-tag"></i> Digitando</label>
-        <input type="checkbox" id="node-input-typing">
+        <label for="node-input-force"
+            ><i class="fa fa-tag"></i> Forçar envio</label
+        >
+        <input type="checkbox" id="node-input-force" />
     </div>
     <div class="form-row">
-        <label for="node-input-sendRead"><i class="fa fa-tag"></i> Visualizar</label>
-        <input type="checkbox" id="node-input-sendRead">
+        <label for="node-input-typing"
+            ><i class="fa fa-tag"></i> Digitando</label
+        >
+        <input type="checkbox" id="node-input-typing" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-sendRead"
+            ><i class="fa fa-tag"></i> Visualizar</label
+        >
+        <input type="checkbox" id="node-input-sendRead" />
     </div>
 
     <div class="form-row">
         <label for="node-input-to"><i class="fa fa-tag"></i> Enviar para</label>
-        <input type="text" id="node-input-to" placeholder="msg.to">
+        <input type="text" id="node-input-to" placeholder="msg.to" />
     </div>
     <div class="form-row">
-        <label for="node-input-imageUrl"><i class="icon-globe"></i> <span> Imagem (URL)</span></label>
-        <input type="text" id="node-input-imageUrl">
+        <label for="node-input-imageUrl"
+            ><i class="icon-globe"></i> <span> Imagem (URL)</span></label
+        >
+        <input type="text" id="node-input-imageUrl" />
     </div>
-    <label for="node-input-template"><i class="fa fa-file-code-o"></i> <span >Mensagem</span></label>
-    <input type="hidden" id="node-input-template" autofocus="autofocus">
+    <label for="node-input-template"
+        ><i class="fa fa-file-code-o"></i> <span>Mensagem</span></label
+    >
+    <input type="hidden" id="node-input-template" autofocus="autofocus" />
 
     <div class="form-row node-text-editor-row">
-        <div style="height: 250px; min-height:150px;" class="node-text-editor" id="node-input-template-editor" ></div>
+        <div
+            style="height: 250px; min-height:150px;"
+            class="node-text-editor"
+            id="node-input-template-editor"
+        ></div>
     </div>
 </script>
 
@@ -111,10 +125,14 @@
 
     <h3>Input</h3>
     <ol class="node-ports">
-        <li>Input
+        <li>
+            Input
             <dl class="message-properties">
                 <dt>to <span class="property-type">String</span></dt>
-                <dd>Contact (full whatsapp address eg: {DDI}{DDD}{PHONE}@s.whatsapp.net)</dd>
+                <dd>
+                    Contact (full whatsapp address eg:
+                    {DDI}{DDD}{PHONE}@s.whatsapp.net)
+                </dd>
             </dl>
             <dl class="message-properties">
                 <dt>Force Send <span class="property-type">Boolean</span></dt>
@@ -129,12 +147,14 @@
 
     <h3>Outputs</h3>
     <ol class="node-ports">
-        <li>Output (Status Message)
+        <li>
+            Output (Status Message)
             <dl class="message-properties">
                 <dt>inform status of message sent to contact</dt>
             </dl>
         </li>
-        <li>Output (Flow)
+        <li>
+            Output (Flow)
             <dl class="message-properties">
                 <dt>continue flow operation</dt>
             </dl>
@@ -143,14 +163,14 @@
 
     <h3>Examples</h3>
 
-    <p>You can send message with fixed values inside this node configuration, or send dinamic data using flow.</p>
+    <p>
+        You can send message with fixed values inside this node configuration,
+        or send dinamic data using flow.
+    </p>
 
     <p>Example message flow</p>
     <code>
-        msg = { to: 'xxxxxxxx@s.whatsapp.net',message: 'Hello World!',force: true }
-        return msg
+        msg = { to: 'xxxxxxxx@s.whatsapp.net',message: 'Hello World!',force:
+        true } return msg
     </code>
-
-
-
 </script>

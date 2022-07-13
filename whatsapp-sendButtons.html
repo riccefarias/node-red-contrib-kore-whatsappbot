@@ -1,196 +1,245 @@
 <script type="text/javascript">
     RED.nodes.registerType('whatsapp-sendbuttons', {
-        oneditprepare: function() {
-            var that = this;
+        oneditprepare: function () {
+            var that = this
 
             if (!this.syntax) {
-                this.syntax = 'mustache';
+                this.syntax = 'mustache'
             }
 
             this.editor = RED.editor.createEditor({
                 id: 'node-input-template-editor',
                 mode: 'ace/mode/handlebars',
-                value: $("#node-input-template").val()
-            });
+                value: $('#node-input-template').val(),
+            })
 
-            this.editor.focus();
+            this.editor.focus()
 
-            var node = this;
-            var outputCount = $("#node-input-outputs").val('{"0":"0"}');
+            var node = this
+            var outputCount = $('#node-input-outputs').val('{"0":"0"}')
 
+            $('#node-input-rule-container')
+                .css('min-height', '150px')
+                .css('min-width', '450px')
+                .editableList({
+                    addItem: function (container, i, opt) {
+                        var focusValueField = false
+                        if (!opt.hasOwnProperty('r')) {
+                            opt.r = {}
+                        }
 
-            $("#node-input-rule-container").css('min-height','150px').css('min-width','450px').editableList({
-                addItem: function(container,i,opt) {
-                    var focusValueField = false;
-                    if (!opt.hasOwnProperty('r')) {
-                        opt.r = {};
+                        opt.element = container
+                        var rule = opt.r
+                        if (!rule.hasOwnProperty('t')) {
+                            rule.t = ''
+                        }
+                        if (!opt.hasOwnProperty('i')) {
+                            opt._i = Math.floor(
+                                (0x99999 - 0x10000) * Math.random()
+                            ).toString()
+                        }
+                        container.css({
+                            overflow: 'hidden',
+                            whiteSpace: 'nowrap',
+                            display: 'flex',
+                            'align-items': 'center',
+                        })
+                        var inputRows = $('<div></div>', {
+                            style: 'flex-grow:1',
+                        }).appendTo(container)
+                        var row = $('<div></div>', {
+                            style: 'display: flex;',
+                        }).appendTo(inputRows)
+                        //var row2 = $('<div/>',{style:"display: flex; padding-top: 5px; padding-left: 175px;"}).appendTo(inputRows);
+                        //var row3 = $('<div/>',{style:"display: flex; padding-top: 5px; align-items: center"}).appendTo(inputRows);
 
-                    }
+                        var rowInputCell = $('<div>', {
+                            style: 'flex-grow:1; margin-left: 5px;',
+                        }).appendTo(row)
 
-                    opt.element = container;
-                    var rule = opt.r;
-                    if (!rule.hasOwnProperty('t')) {
-                        rule.t = '';
-                    }
-                    if (!opt.hasOwnProperty('i')) {
-                        opt._i = Math.floor((0x99999-0x10000)*Math.random()).toString();
-                    }
-                    container.css({
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                        display: "flex",
-                        "align-items":"center"
-                    });
-                    var inputRows = $('<div></div>',{style:"flex-grow:1"}).appendTo(container);
-                    var row = $('<div></div>',{style:"display: flex;"}).appendTo(inputRows);
-                    //var row2 = $('<div/>',{style:"display: flex; padding-top: 5px; padding-left: 175px;"}).appendTo(inputRows);
-                    //var row3 = $('<div/>',{style:"display: flex; padding-top: 5px; align-items: center"}).appendTo(inputRows);
+                        $('<input>', {
+                            value: rule.t,
+                            class: 'node-input-rule-btwn-value2',
+                            type: 'text',
+                            style: 'width: 80%;height: 30px;',
+                        }).appendTo(rowInputCell)
 
+                        var valueField = null
+                        var numValueField = null
+                        var expValueField = null
+                        var btwnAndLabel = null
+                        var btwnValueField = null
+                        var btwnValue2Field = null
+                        var typeValueField = null
 
+                        var finalspan = $('<span/>', {
+                            style: 'margin-left: 5px;',
+                        }).appendTo(container)
+                        finalspan.append(
+                            ' &#8594; <span class="node-input-rule-index">' +
+                                (i + 1) +
+                                '</span> '
+                        )
 
-                    var rowInputCell = $('<div>',{style:"flex-grow:1; margin-left: 5px;"}).appendTo(row);
+                        var currentOutputs = JSON.parse(
+                            outputCount.val() || '{"0":"0"}'
+                        )
+                        currentOutputs[
+                            opt.hasOwnProperty('i') ? opt.i + 1 : opt._i
+                        ] = i + 1
+                        outputCount.val(JSON.stringify(currentOutputs))
+                    },
+                    removeItem: function (opt) {
+                        var currentOutputs = JSON.parse(
+                            outputCount.val() || '{"0":"0"}'
+                        )
+                        if (opt.hasOwnProperty('i')) {
+                            currentOutputs[opt.i] = -1
+                        } else {
+                            delete currentOutputs[opt._i]
+                        }
+                        var rules = $(
+                            '#node-input-rule-container'
+                        ).editableList('items')
+                        rules.each(function (i) {
+                            $(this)
+                                .find('.node-input-rule-index')
+                                .html(i + 1)
+                            var data = $(this).data('data')
+                            currentOutputs[
+                                data.hasOwnProperty('i') ? data.i + 1 : data._i
+                            ] = i + 1
+                        })
+                        outputCount.val(JSON.stringify(currentOutputs))
+                    },
+                    sortItems: function (rules) {
+                        var currentOutputs = JSON.parse(
+                            outputCount.val() || '{}'
+                        )
+                        var rules = $(
+                            '#node-input-rule-container'
+                        ).editableList('items')
+                        rules.each(function (i) {
+                            $(this)
+                                .find('.node-input-rule-index')
+                                .html(i + 1)
+                            var data = $(this).data('data')
+                            currentOutputs[
+                                data.hasOwnProperty('i') ? data.i + 1 : data._i
+                            ] = i + 1
+                        })
+                        outputCount.val(JSON.stringify(currentOutputs))
+                    },
+                    sortable: true,
+                    removable: true,
+                })
 
-                    $("<input>",{value: rule.t,class:"node-input-rule-btwn-value2",type:"text",style:"width: 80%;height: 30px;"}).appendTo(rowInputCell);
-
-
-                    var valueField = null;
-                    var numValueField = null;
-                    var expValueField = null;
-                    var btwnAndLabel = null;
-                    var btwnValueField = null;
-                    var btwnValue2Field = null;
-                    var typeValueField = null;
-
-                    var finalspan = $('<span/>',{style:"margin-left: 5px;"}).appendTo(container);
-                    finalspan.append(' &#8594; <span class="node-input-rule-index">'+(i+1)+'</span> ');
-
-
-                    var currentOutputs = JSON.parse(outputCount.val()||'{"0":"0"}');
-                    currentOutputs[opt.hasOwnProperty('i')?opt.i+1:opt._i] = i+1;
-                    outputCount.val(JSON.stringify(currentOutputs));
-                },
-                removeItem: function(opt) {
-                    var currentOutputs = JSON.parse(outputCount.val()||'{"0":"0"}');
-                    if (opt.hasOwnProperty('i')) {
-                        currentOutputs[opt.i] = -1;
-                    } else {
-                        delete currentOutputs[opt._i];
-                    }
-                    var rules = $("#node-input-rule-container").editableList('items');
-                    rules.each(function(i) {
-                        $(this).find(".node-input-rule-index").html(i+1);
-                        var data = $(this).data('data');
-                        currentOutputs[data.hasOwnProperty('i')?data.i+1:data._i] = i+1;
-                    });
-                    outputCount.val(JSON.stringify(currentOutputs));
-                },
-                sortItems: function(rules) {
-                    var currentOutputs = JSON.parse(outputCount.val()||"{}");
-                    var rules = $("#node-input-rule-container").editableList('items');
-                    rules.each(function(i) {
-                        $(this).find(".node-input-rule-index").html(i+1);
-                        var data = $(this).data('data');
-                        currentOutputs[data.hasOwnProperty('i')?data.i+1:data._i] = i+1
-                    });
-                    outputCount.val(JSON.stringify(currentOutputs));
-                },
-                sortable: true,
-                removable: true
-            });
-
-            for (var i=0;i<this.rules.length;i++) {
-                var rule = this.rules[i];
-                $("#node-input-rule-container").editableList('addItem',{r:rule,i:i});
+            for (var i = 0; i < this.rules.length; i++) {
+                var rule = this.rules[i]
+                $('#node-input-rule-container').editableList('addItem', {
+                    r: rule,
+                    i: i,
+                })
             }
-
         },
-        oneditsave: function() {
-            $("#node-input-template").val(this.editor.getValue());
-            this.editor.destroy();
-            delete this.editor;
+        oneditsave: function () {
+            $('#node-input-template').val(this.editor.getValue())
+            this.editor.destroy()
+            delete this.editor
 
-            var rules = $("#node-input-rule-container").editableList('items');
-            var node = this;
-            node.rules = [];
-            rules.each(function(i) {
-                node.rules.push({t: $(this).find(".node-input-rule-btwn-value2").val()});
-            });
+            var rules = $('#node-input-rule-container').editableList('items')
+            var node = this
+            node.rules = []
+            rules.each(function (i) {
+                node.rules.push({
+                    t: $(this).find('.node-input-rule-btwn-value2').val(),
+                })
+            })
             //this.propertyType = $("#node-input-property").typedInput('type');
         },
-        oneditcancel: function() {
-            this.editor.destroy();
-            delete this.editor;
+        oneditcancel: function () {
+            this.editor.destroy()
+            delete this.editor
         },
         category: 'Whatsapp Bot',
         color: '#9eccb2',
         defaults: {
             name: {
-                value: ''
+                value: '',
             },
             client: {
                 type: 'whatsapp-kore-client',
-                required: true
+                required: true,
             },
             force: {
-                value: false
+                value: false,
             },
 
-            outputs: {value:1},
-            rules: {value: []},
-            format: {value:"handlebars"},
-            syntax: {value:"mustache"},
+            outputs: { value: 1 },
+            rules: { value: [] },
+            format: { value: 'handlebars' },
+            syntax: { value: 'mustache' },
             template: {
-                value:"This is the payload: {{payload}} !"
+                value: 'This is the payload: {{payload}} !',
             },
         },
         inputs: 1,
         outputs: 1,
-        align: "left",
+        align: 'left',
         icon: 'font-awesome/fa-bars',
         paletteLabel: 'Enviar Botões',
         label: function () {
             return this.name || this.template || 'Enviar Botões'
         },
-        outputLabels: function(index) {
-
-            if(index===0){
-                return 'Fluxo';
+        outputLabels: function (index) {
+            if (index === 0) {
+                return 'Fluxo'
             }
 
-            var rule = this.rules[index-1];
-            var label = "";
+            var rule = this.rules[index - 1]
+            var label = ''
             if (rule) {
-                return rule.t;
+                return rule.t
             }
         },
     })
 </script>
 
-
 <script type="text/html" data-template-name="whatsapp-sendbuttons">
     <div class="form-row">
-        <label for="node-input-client"><i class="icon-globe"></i> <span> Cliente WhatsApp</span></label>
-        <input type="text" id="node-input-client">
+        <label for="node-input-client"
+            ><i class="icon-globe"></i> <span> Cliente WhatsApp</span></label
+        >
+        <input type="text" id="node-input-client" />
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
-    <hr>
+    <hr />
     <div class="form-row">
-        <label for="node-input-force"><i class="fa fa-tag"></i> Forçar envio</label>
-        <input type="checkbox" id="node-input-force">
+        <label for="node-input-force"
+            ><i class="fa fa-tag"></i> Forçar envio</label
+        >
+        <input type="checkbox" id="node-input-force" />
     </div>
-    <label for="node-input-template"><i class="fa fa-file-code-o"></i> <span >Mensagem</span></label>
-    <input type="hidden" id="node-input-template" autofocus="autofocus">
+    <label for="node-input-template"
+        ><i class="fa fa-file-code-o"></i> <span>Mensagem</span></label
+    >
+    <input type="hidden" id="node-input-template" autofocus="autofocus" />
 
     <div class="form-row node-text-editor-row">
-        <div style="height: 250px; min-height:80px;max-height: 150px;" class="node-text-editor" id="node-input-template-editor" ></div>
+        <div
+            style="height: 250px; min-height:80px;max-height: 150px;"
+            class="node-text-editor"
+            id="node-input-template-editor"
+        ></div>
     </div>
 
-
-    <label for="node-input-outputs"><i class="fa fa-file-code-o"></i> <span >Botões</span></label>
-    <input type="hidden" id="node-input-outputs" autofocus="autofocus">
+    <label for="node-input-outputs"
+        ><i class="fa fa-file-code-o"></i> <span>Botões</span></label
+    >
+    <input type="hidden" id="node-input-outputs" autofocus="autofocus" />
 
     <div class="form-row node-input-rule-container-row">
         <ol id="node-input-rule-container"></ol>
@@ -202,7 +251,8 @@
 
     <h3>Input</h3>
     <ol class="node-ports">
-        <li>Input
+        <li>
+            Input
             <dl class="message-properties">
                 <dt>to <span class="property-type">String</span></dt>
                 <dd>Contact (full whatsapp address)</dd>
@@ -216,7 +266,8 @@
 
     <h3>Outputs</h3>
     <ol class="node-ports">
-        <li>Output
+        <li>
+            Output
             <dl class="message-properties">
                 <dt>payload <span class="property-type">Array</span></dt>
                 <dd>Args result of the api/event</dd>
@@ -230,14 +281,14 @@
 
     <h3>Examples</h3>
 
-    <p>You can send message with fixed values inside this node configuration, or send dinamic data using flow.</p>
+    <p>
+        You can send message with fixed values inside this node configuration,
+        or send dinamic data using flow.
+    </p>
 
     <p>Example message flow</p>
     <code>
-        msg = { to: 'xxxxxxxx@s.whatsapp.net',message: 'Hello World!' }
-        return msg
+        msg = { to: 'xxxxxxxx@s.whatsapp.net',message: 'Hello World!' } return
+        msg
     </code>
-
-
-
 </script>
