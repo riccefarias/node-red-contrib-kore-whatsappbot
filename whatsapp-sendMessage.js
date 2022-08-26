@@ -55,7 +55,7 @@ module.exports = function (RED) {
                     msg.session.lastNodeId === node.id &&
                     !msg.executed)
             ) {
-                if (msg.payload.contactId && msg.payload.messageId) {
+                if (msg.payload.contactId && msg.payload.messageId && node.sendRead) {
                     clientNode.sendRead(
                         msg.payload.contactId,
                         msg.payload.participant,

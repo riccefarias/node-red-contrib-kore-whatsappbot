@@ -201,7 +201,7 @@ module.exports = function (RED) {
         }
 
         node.sendRead = function (to, participant, key) {
-            client.sendReadReceipt(to, participant, [key])
+            //client.sendReadReceipt(to, participant, [key])
         }
 
         node.sendTTS = async function (to, message) {
