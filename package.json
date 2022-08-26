@@ -31,7 +31,7 @@
     "author": "Angelo Farias <https://github.com/riccefarias>",
     "license": "MIT",
     "dependencies": {
-        "@adiwajshing/baileys": "^4.0.1",
+        "@adiwajshing/baileys": "^4.4.0",
         "@google-cloud/text-to-speech": "^3.4.0",
         "@hapi/boom": "^9.1.4",
         "curve25519-js": "^0.0.4",
